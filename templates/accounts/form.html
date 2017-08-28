@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form method="POST" action="{% url 'accounts:profile_edit' %}">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">
+        {% for error in field.errors %}
+            {{ error }}
+        {% endfor %}
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.help_text %}
+        <p class="help-text">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+    {%  endfor %}
+    <input class="btn btn-submit" type="submit" value="Send">
+</form>
+{% endblock %}
